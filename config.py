@@ -7,7 +7,7 @@ BOT_TOKEN = "8780959638:AAExagenvIfix8jxhZIo5tKD9WBrcoM7IUU"
 
 # 2. Your group chat ID (negative number, e.g. -1001234567890)
 #    Run /id in the group after adding the bot, or use @userinfobot
-GROUP_CHAT_ID = -1001234567890
+GROUP_CHAT_ID = -1003448823290
 
 # 3. Times to send quizzes daily (24-hour format, HH:MM)
 #    All times are in the timezone below
