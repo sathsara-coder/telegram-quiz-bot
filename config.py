@@ -3,7 +3,7 @@
 # ─────────────────────────────────────────────────────────
 
 # 1. Get your token from @BotFather on Telegram
-BOT_TOKEN = "YOUR_BOT_TOKEN_HERE"
+BOT_TOKEN = "8780959638:AAExagenvIfix8jxhZIo5tKD9WBrcoM7IUU"
 
 # 2. Your group chat ID (negative number, e.g. -1001234567890)
 #    Run /id in the group after adding the bot, or use @userinfobot
