@@ -6,7 +6,6 @@
 QUIZZES = [
 
     # Bs
-[
 {"id":1,"question":"ව්‍යාපාරය යනු කුමක්ද?","options":["විනෝදාස්වාද ක්‍රියාකාරකම්","ලාභය සඳහා භාණ්ඩ හා සේවා නිෂ්පාදනය සහ විකිණීම","රජයේ සේවාව","ආගමික කටයුතු"],"correct_option_id":1,"explanation":"Business = production & selling for profit."},
 {"id":2,"question":"ව්‍යාපාරයේ ප්‍රධාන අරමුණ කුමක්ද?","options":["ලාභ උපයා ගැනීම","වියදම් වැඩි කිරීම","සේවකයින් අඩු කිරීම","රජයට උදව් කිරීම"],"correct_option_id":0,"explanation":"Main goal is profit."},
 {"id":3,"question":"ප්‍රාථමික කර්මාන්තය යනු?","options":["සේවා සැපයීම","නිෂ්පාදනය","ස්වභාවික සම්පත් ලබාගැනීම","වෙළඳාම"],"correct_option_id":2,"explanation":"Primary = extraction."},
@@ -56,4 +55,3 @@ QUIZZES = [
 {"id":40,"question":"ගෝලීයකරණයේ ප්‍රතිලාභයක්?","options":["වෙළඳපොළ අඩුවීම","වෙළඳපොළ වැඩි වීම","තාක්ෂණය අඩු","තරඟ අඩු"],"correct_option_id":1,"explanation":"More markets."},
     
 ]
-
