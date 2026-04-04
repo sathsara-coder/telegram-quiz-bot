@@ -1,40 +1,45 @@
 #!/usr/bin/env python3
 """
 Sinhala Commerce Quiz Bot
-Sends 5 quizzes on startup. Use /quiz to send more anytime.
+✔ Sends quizzes automatically at specific times
+✔ Keeps quiz order (1 → 2 → 3...)
+✔ Supports manual commands
 """
 
 import asyncio
 import logging
-import random
+from datetime import time
 
+import pytz
 from telegram import Bot
 from telegram.ext import Application, CommandHandler, ContextTypes
 
-from config import BOT_TOKEN, GROUP_CHAT_ID
+from config import BOT_TOKEN, GROUP_CHAT_ID, QUIZ_TIMES, TIMEZONE
 from quiz_bank import QUIZZES
 
+# Logging
 logging.basicConfig(
     format="%(asctime)s | %(levelname)s | %(message)s",
     level=logging.INFO,
 )
 logger = logging.getLogger(__name__)
 
-sent_today: set = set()
+# 👉 Track quiz order
+current_index = 0
 
 
+# ✅ Send quiz function (SEQUENTIAL)
 async def send_quiz(bot: Bot, count: int = 1) -> None:
-    global sent_today
+    global current_index
+
+    total = len(QUIZZES)
 
     for _ in range(count):
-        available = [q for q in QUIZZES if q["id"] not in sent_today]
-        if not available:
-            sent_today.clear()
-            available = QUIZZES
-            logger.info("Pool reset.")
+        if current_index >= total:
+            current_index = 0  # reset
 
-        quiz = random.choice(available)
-        sent_today.add(quiz["id"])
+        quiz = QUIZZES[current_index]
+        current_index += 1
 
         try:
             await bot.send_poll(
@@ -46,51 +51,65 @@ async def send_quiz(bot: Bot, count: int = 1) -> None:
                 explanation=quiz.get("explanation", ""),
                 is_anonymous=False,
             )
-            logger.info(f"Sent quiz id={quiz['id']}: {quiz['question'][:60]}...")
+            logger.info(f"Sent quiz id={quiz['id']}")
             await asyncio.sleep(2)
+
         except Exception as e:
             logger.error(f"Failed to send quiz: {e}")
 
 
-async def send_startup_quizzes(application: Application) -> None:
-    logger.info("Sending 5 startup quizzes...")
-    await send_quiz(application.bot, count=5)
+# ✅ Scheduled job
+async def scheduled_quiz(context: ContextTypes.DEFAULT_TYPE):
+    logger.info("⏰ Sending scheduled quizzes...")
+    await send_quiz(context.bot, count=5)
 
 
-async def cmd_start(update, context: ContextTypes.DEFAULT_TYPE) -> None:
+# ✅ Commands
+async def cmd_start(update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "🎓 *Sinhala Commerce Quiz Bot*\n\n"
         "Commands:\n"
-        "/quiz — Send a quiz now\n"
-        "/quiz5 — Send 5 quizzes now\n"
-        "/help — Show this message",
+        "/quiz — Send 1 quiz\n"
+        "/quiz5 — Send 5 quizzes\n"
+        "/help — Help menu",
         parse_mode="Markdown",
     )
 
-async def cmd_quiz(update, context: ContextTypes.DEFAULT_TYPE) -> None:
+
+async def cmd_quiz(update, context: ContextTypes.DEFAULT_TYPE):
     await send_quiz(context.bot, count=1)
 
-async def cmd_quiz5(update, context: ContextTypes.DEFAULT_TYPE) -> None:
+
+async def cmd_quiz5(update, context: ContextTypes.DEFAULT_TYPE):
     await send_quiz(context.bot, count=5)
 
-async def cmd_help(update, context: ContextTypes.DEFAULT_TYPE) -> None:
+
+async def cmd_help(update, context: ContextTypes.DEFAULT_TYPE):
     await cmd_start(update, context)
 
 
+# ✅ Main function
 def main() -> None:
-    application = (
-        Application.builder()
-        .token(BOT_TOKEN)
-        .post_init(send_startup_quizzes)
-        .build()
-    )
+    application = Application.builder().token(BOT_TOKEN).build()
 
+    # 👉 Add commands
     application.add_handler(CommandHandler("start", cmd_start))
     application.add_handler(CommandHandler("help", cmd_help))
     application.add_handler(CommandHandler("quiz", cmd_quiz))
     application.add_handler(CommandHandler("quiz5", cmd_quiz5))
 
-    logger.info("Bot is running...")
+    # 👉 Setup scheduler
+    tz = pytz.timezone(TIMEZONE)
+
+    for t in QUIZ_TIMES:
+        hour, minute = map(int, t.split(":"))
+
+        application.job_queue.run_daily(
+            scheduled_quiz,
+            time=time(hour=hour, minute=minute, tzinfo=tz),
+        )
+
+    logger.info("🤖 Bot is running...")
     application.run_polling(drop_pending_updates=True)
 
 
