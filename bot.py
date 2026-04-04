@@ -1,10 +1,4 @@
 #!/usr/bin/env python3
-"""
-Sinhala Commerce Quiz Bot
-✔ Sends quizzes automatically at specific times
-✔ Keeps quiz order (1 → 2 → 3...)
-✔ Supports manual commands
-"""
 
 import asyncio
 import logging
@@ -24,19 +18,19 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# 👉 Track quiz order
+# ✅ Keep quiz order
 current_index = 0
 
 
-# ✅ Send quiz function (SEQUENTIAL)
-async def send_quiz(bot: Bot, count: int = 1) -> None:
+# ✅ Send quiz (SEQUENTIAL)
+async def send_quiz(bot: Bot, count: int = 1):
     global current_index
 
     total = len(QUIZZES)
 
     for _ in range(count):
         if current_index >= total:
-            current_index = 0  # reset
+            current_index = 0
 
         quiz = QUIZZES[current_index]
         current_index += 1
@@ -55,62 +49,60 @@ async def send_quiz(bot: Bot, count: int = 1) -> None:
             await asyncio.sleep(2)
 
         except Exception as e:
-            logger.error(f"Failed to send quiz: {e}")
+            logger.error(f"Error sending quiz: {e}")
 
 
-# ✅ Scheduled job
+# ✅ Scheduled task
 async def scheduled_quiz(context: ContextTypes.DEFAULT_TYPE):
-    logger.info("⏰ Sending scheduled quizzes...")
+    logger.info("⏰ Auto quiz triggered")
     await send_quiz(context.bot, count=5)
 
 
 # ✅ Commands
 async def cmd_start(update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        "🎓 *Sinhala Commerce Quiz Bot*\n\n"
-        "Commands:\n"
-        "/quiz — Send 1 quiz\n"
-        "/quiz5 — Send 5 quizzes\n"
-        "/help — Help menu",
-        parse_mode="Markdown",
+        "🎓 Sinhala Commerce Quiz Bot\n\n"
+        "/quiz - Send 1 quiz\n"
+        "/quiz5 - Send 5 quizzes\n"
+        "/help - Help",
     )
 
 
 async def cmd_quiz(update, context: ContextTypes.DEFAULT_TYPE):
-    await send_quiz(context.bot, count=1)
+    await send_quiz(context.bot, 1)
 
 
 async def cmd_quiz5(update, context: ContextTypes.DEFAULT_TYPE):
-    await send_quiz(context.bot, count=5)
+    await send_quiz(context.bot, 5)
 
 
 async def cmd_help(update, context: ContextTypes.DEFAULT_TYPE):
     await cmd_start(update, context)
 
 
-# ✅ Main function
-def main() -> None:
-    application = Application.builder().token(BOT_TOKEN).build()
+# ✅ Main
+def main():
+    app = Application.builder().token(BOT_TOKEN).build()
 
-    # 👉 Add commands
-    application.add_handler(CommandHandler("start", cmd_start))
-    application.add_handler(CommandHandler("help", cmd_help))
-    application.add_handler(CommandHandler("quiz", cmd_quiz))
-    application.add_handler(CommandHandler("quiz5", cmd_quiz5))
+    # Commands
+    app.add_handler(CommandHandler("start", cmd_start))
+    app.add_handler(CommandHandler("quiz", cmd_quiz))
+    app.add_handler(CommandHandler("quiz5", cmd_quiz5))
+    app.add_handler(CommandHandler("help", cmd_help))
 
-    # 👉 Setup scheduler
+    # Scheduler
     tz = pytz.timezone(TIMEZONE)
 
     for t in QUIZ_TIMES:
-        hour, minute = map(int, t.split(":"))
+        h, m = map(int, t.split(":"))
 
-        application.job_queue.run_daily(
+        app.job_queue.run_daily(
             scheduled_quiz,
-            time=time(hour=hour, minute=minute, tzinfo=tz),
+            time=time(hour=h, minute=m, tzinfo=tz),
         )
 
-    logger.info("🤖 Bot is running...")
-    application.run_polling(drop_pending_updates=True)
+    logger.info("✅ Bot running with scheduler...")
+    app.run_polling()
 
 
 if __name__ == "__main__":
