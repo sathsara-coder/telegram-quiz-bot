@@ -55,11 +55,15 @@ QUIZZES = [
   {"id":48,"question":"රෝම සංඛ්‍යා පද්ධතියේ 'C' අකුරෙන් නිරූපණය වන අගය කුමක්ද?","options":["10","50","100","500"],"correct_option_id":2,"explanation":"රෝම සංඛ්‍යා වල C = 100 සහ L = 50 වේ."},
   {"id":49,"question":"අංක 5 tally marks වලින් නිවැරදිව දක්වා ඇත්තේ කෙසේද?","options":["|||||","////","IIIII","Group of 4 vertical lines with one diagonal line"],"correct_option_id":3,"explanation":"Tally marks වලදී 5 නිරූපණය කරන්නේ ඉරි 4ක් ඇඳ 5 වැන්න හරහට ඇඳීමෙනි."},
   {"id":50,"question":"පරිගණකයක දත්ත ගබඩා කිරීමේ මූලික ඒකකය (Binary Digit) හඳුන්වන්නේ?","options":["Byte","Bit","Gigabyte","Megabyte"],"correct_option_id":1,"explanation":"Bit (බිටුව) යනු ද්විමය සංඛ්‍යා පද්ධතියේ එක් ඉලක්කමකි."},
-  {"id":51,"question":"අඩුම තරමින් එක් ආදානයක් 1 වූ විට ප්‍රතිදානය 1 වන මූලික තර්ක ද්වාරය කුමක්ද?","options":["AND Gate","OR Gate","NOT Gate","NAND Gate"],"correct_option_id":1,"explanation":"OR ද්වාරයක ඕනෑම ආදානයක් 1 වූ විට ප්‍රතිදානය 1 වේ."],"correct_option_id":1},
-  {"id":52,"question":"සියලුම ආදාන 1 වූ විට පමණක් ප්‍රතිදානය 1 වන ද්වාරය කුමක්ද?","options":["OR Gate","AND Gate","NOT Gate","NOR Gate"],"correct_option_id":1,"explanation":"AND ද්වාරයක ප්‍රතිදානය 1 වන්නේ සියලුම ආදාන 1 වූ විට පමණි."},
-  {"id":53,"question":"ආදානය ප්‍රතිවිරුද්ධ අගයකට (Invert) පත් කරන ද්වාරය කුමක්ද?","options":["AND","OR","NOT","XOR"],"correct_option_id":2,"explanation":"NOT ද්වාරය 1 ආදානය කළ විට 0 ක් ද, 0 ආදානය කළ විට 1 ක් ද ලබා දෙයි."},
-  {"id":54,"question":"සර්ව ද්වාර (Universal Gates) ලෙස හඳුන්වන්නේ මින් කවරක්ද?","options":["AND & OR","NAND & NOR","XOR & XNOR","NOT & Buffer"],"correct_option_id":1,"explanation":"NAND සහ NOR ද්වාර භාවිතයෙන් අනෙකුත් සියලුම ද්වාර නිර්මාණය කළ හැකි බැවින් ඒවා සර්ව ද්වාර වේ."},
-  {"id":55,"question":"ආදාන දෙකම සමාන වූ විට (උදා: 0,0 හෝ 1,1) ප්‍රතිදානය 0 වන ද්වාරය කුමක්ද?","options":["OR","AND","XOR","XNOR"],"correct_option_id":2,"explanation":"XOR (Exclusive OR) ද්වාරයක ආදාන එකිනෙකට වෙනස් වූ විට පමණක් ප්‍රතිදානය 1 වේ."},
+  {"id":51,"question":"අඩුම තරමින් එක් ආදානයක් 1 වූ විට ප්‍රතිදානය 1 වන gate එක කුමක්ද?","options":["AND","OR","NOT","NAND"],"correct_option_id":1,"explanation":"OR gate එකේ input එකක් 1 නම් output 1 වේ."},
+  {"id":52,"question":"සියලු inputs 1 වූ විට පමණක් output 1 වන gate එක කුමක්ද?","options":["OR","AND","NOT","NOR"],"correct_option_id":1,"explanation":"AND gate එකේ සියලු inputs 1 විය යුතුය."},
+
+{"id":53,"question":"Input invert කරන gate එක කුමක්ද?","options":["AND","OR","NOT","XOR"],"correct_option_id":2,"explanation":"NOT gate එක input එක reverse කරයි."},
+
+{"id":54,"question":"Universal gates මොනවාද?","options":["AND & OR","NAND & NOR","XOR & XNOR","NOT & Buffer"],"correct_option_id":1,"explanation":"NAND සහ NOR භාවිතයෙන් සියලු gates හදන්න පුළුවන්."},
+
+{"id":55,"question":"Inputs same (0,0 / 1,1) වෙද්දී output 0 වන gate එක කුමක්ද?","options":["OR","AND","XOR","XNOR"],"correct_option_id":2,"explanation":"XOR gate එකේ inputs different නම් පමණක් 1 වේ."},
+
   {"id":56,"question":"බූලීය වීජ ගණිතයේ (Boolean Algebra) පියා ලෙස සැලකෙන්නේ කවුද?","options":["Claude Shannon","George Boole","Alan Turing","Blaise Pascal"],"correct_option_id":1,"explanation":"ජෝර්ජ් බූල් (George Boole) බූලීය වීජ ගණිතය හඳුන්වා දුන් පුද්ගලයා වේ."},
   {"id":57,"question":"සංඛ්‍යාංක පරිපථ (Digital Circuits) නිර්මාණයට බූලීය වීජ ගණිතය යොදා ගත්තේ කවුද?","options":["George Boole","Claude Shannon","Charles Babbage","Ada Lovelace"],"correct_option_id":1,"explanation":"ක්ලෝඩ් ෂැනන් (Claude Shannon) විසින් මෙය පරිගණක පරිපථ සඳහා යොදා ගන්නා ලදී."},
   {"id":58,"question":"බූලීය ප්‍රකාශන සරල කිරීමට භාවිතා කරන ප්‍රස්තාරික ක්‍රමය කුමක්ද?","options":["Flowcharts","Karnaugh Maps (K-maps)","Logic Circuit","Truth Table"],"correct_option_id":1,"explanation":"K-maps මගින් බූලීය ප්‍රකාශන පහසුවෙන් සරල කළ හැකිය."},
@@ -104,5 +108,5 @@ QUIZZES = [
   {"id":97,"question":"සංයුක්ත පරිපථ (Integrated Circuits) නිපදවීමට බහුලව භාවිතා කරන අර්ධ සන්නායක ද්‍රව්‍යය කුමක්ද?","options":["Gold","Copper","Silicon","Iron"],"correct_option_id":2,"explanation":"ICs නිපදවීමට සිලිකන් (Silicon) භාවිතා කරයි."},
   {"id":98,"question":"පරිගණක මෙහෙයුම් පද්ධතියක (OS) ප්‍රධාන කාර්යයක් නොවන්නේ කුමක්ද?","options":["Memory Management","File Management","Image Editing","Process Management"],"correct_option_id":2,"explanation":"Image Editing යනු යෙදුම් මෘදුකාංගයක් (Application Software) මගින් කරන කාර්යයකි."},
   {"id":99,"question":"වෙබ් අඩවියක ලිපිනය (URL) ලෙස පවතින නම IP ලිපිනයක් බවට පත් කරන්නේ කුමන සේවාව මගින්ද?","options":["HTTP","DNS (Domain Name System)","FTP","DHCP"],"correct_option_id":1,"explanation":"DNS මගින් වෙබ් ලිපින (උදා: google.com) පරිගණකයට තේරෙන IP ලිපින බවට පරිවර්තනය කරයි."},
-  {"id":100,"question":"පරිගණකයක ALU ඒකකය මගින් සිදුකරන ප්‍රධාන කාර්යය කුමක්ද?","options":["දත්ත ගබඩා කිරීම","ගණිතමය සහ තර්කන කටයුතු","මුද්‍රණය කිරීම","අන්තර්ජාලයට සම්බන්ධ වීම"],"correct_option_id":1,"explanation":"ALU (Arithmetic Logic Unit) මගින් සියලුම ගණිතමය සහ තර්කන කටයුතු සිදු කරයි."}
+  {"id":100,"question":"ALU එකේ කාර්යය කුමක්ද?","options":["Storage","Math & Logic","Printing","Internet"],"correct_option_id":1,"explanation":"ALU ගණිතමය සහ තර්කන කාර්යයන් සිදු කරයි."}
 ]
